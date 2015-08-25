@@ -1,0 +1,40 @@
+TAP version 13
+# foo
+# bar
+1..6
+ok 1
+ok 2 foo
+ok 3 bar # thing
+not ok 4
+  ---
+  name: Error
+  message: foobar
+  stack: |-
+    Error: foobar
+        line1
+        line2
+
+  ...
+not ok 5 foo
+  ---
+  name: Error
+  message: foobar
+  stack: |-
+    Error: foobar
+        line1
+        line2
+
+  ...
+not ok 6 bar # thing
+  ---
+  name: AssertionError
+  message: foomessage
+  operator: ==
+  expected: five
+  actual: four
+  stack: |-
+    AssertionError: foomessage
+        line1
+        line2
+
+  ...
