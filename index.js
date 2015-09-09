@@ -68,17 +68,21 @@ MakeTap.prototype.result = function (result) {
 
 MakeTap.prototype.processError = function (err) {
   var obj = {}
-  obj.name = err.name
-  obj.message = err.message
+  applyProp(err, obj, 'name')
+  applyProp(err, obj, 'message')
   if (err.name === 'AssertionError') {
-    obj.operator = err.operator
-    obj.expected = err.expected
-    obj.actual = err.actual
+    applyProp(err, obj, 'operator')
+    applyProp(err, obj, 'expected')
+    applyProp(err, obj, 'actual')
   }
-  obj.stack = err.stack
+  applyProp(err, obj, 'stack')
   return obj
 }
 
 module.exports = function () {
   return new MakeTap()
+}
+
+function applyProp (from, to, name) {
+  if (from[name]) to[name] = from[name]
 }

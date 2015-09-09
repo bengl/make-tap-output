@@ -38,3 +38,8 @@ not ok 6 bar # thing
         line2
 
   ...
+not ok 7
+  ---
+  name: not a real error
+
+  ...

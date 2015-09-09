@@ -34,6 +34,7 @@ testTap.pass('bar', 'thing')
 testTap.fail(testErr)
 testTap.fail('foo', testErr)
 testTap.fail('bar', 'thing', testAssertionError)
+testTap.fail({name: 'not a real error'})
 
 testTap.end()
 
