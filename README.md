@@ -1,5 +1,7 @@
 # make-tap-output
 
+![build status](https://travis-ci.org/bengl/make-tap-output.svg)
+
 This is a simple toolkit for making TAP-compatible output.
 
 ## Usage
