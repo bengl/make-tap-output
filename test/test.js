@@ -4,6 +4,7 @@ var assert = require('assert')
 
 var testOutput = fs.readFileSync(require('path').join(__dirname, 'test1.tap'), 'utf8')
 var buff = ''
+var exitCode = 0
 
 var testErr = {
   name: 'Error',
@@ -18,13 +19,6 @@ var testAssertionError = {
   expected: 'five',
   actual: 'four',
   stack: 'AssertionError: foomessage\n    line1\n    line2'
-}
-
-function testTapPipe (tap) {
-  tap
-  .on('data', function (d) {
-    buff += d
-  })
 }
 
 var testTap = makeTap()
@@ -69,8 +63,36 @@ testTapPipe(testTap)
 testTapPipe(testTap2)
 testTap2.on('end', function () {
   process.nextTick(function () {
-    require('print-diff')(testOutput, buff)
-    assert.equal(testOutput, buff)
-    console.log('# success!')
+    var mainTap = makeTap()
+    testOutput = testOutput.split('\n')
+    buff = buff.split('\n')
+    mainTap.plan(testOutput.length)
+    assertEqual(mainTap, testOutput.length, buff.length)
+    testOutput.forEach(function (line, i) {
+      assertEqual(mainTap, line, buff[i])
+    })
+    mainTap.end()
+    mainTap.pipe(process.stdout)
+    process.nextTick(function () {
+      process.exit(exitCode)
+    })
   })
 })
+
+function testTapPipe (tap) {
+  tap
+  .on('data', function (d) {
+    buff += d
+  })
+}
+
+function assertEqual (tap, x, y) {
+  var name = '"' + x + '" === "' + y + '"'
+  try {
+    assert.equal(x, y)
+    tap.pass(name)
+  } catch (e) {
+    tap.fail(name, e)
+    exitCode = 1
+  }
+}
