@@ -112,6 +112,13 @@ tap.bail('This is a bail out reason')
 // Bail out! This is a bail out reason
 ```
 
+## Standard?
+
+This module, while helping to produce standard TAP version 13 output, can also
+produce non-standard output, depending on how you interat with it. For example,
+if you call `plan` midway through your tests, that's invalid TAP. It's up to you
+the user of this module, to use it correctly.
+
 ## License
 
 MIT License. See LICENSE.txt
