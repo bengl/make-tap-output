@@ -1,6 +1,6 @@
 {
   "name": "make-tap-output",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A small toolkit for making TAP output",
   "main": "index.js",
   "scripts": {
