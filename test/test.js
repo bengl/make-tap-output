@@ -36,6 +36,9 @@ testTap.fail('foo', testErr)
 testTap.fail('bar', 'thing', testAssertionError)
 testTap.fail({name: 'not a real error'})
 
+testTap.bail()
+testTap.bail('This is a bail reason')
+
 testTap.end()
 
 var buff = ''

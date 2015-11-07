@@ -76,6 +76,18 @@ tap.fail('foo test', 'bar', new Error('foo fail'))
 //   ...
 ```
 
+### `#bail([message])`
+
+```js
+tap.bail()
+// Bail out!
+```
+
+```js
+tap.bail('This is a bail out reason')
+// Bail out! This is a bail out reason
+```
+
 ## License
 
 MIT License. See LICENSE.txt

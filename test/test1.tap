@@ -43,3 +43,5 @@ not ok 7
   name: not a real error
 
   ...
+Bail out!
+Bail out! This is a bail reason

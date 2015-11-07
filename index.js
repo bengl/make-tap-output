@@ -6,6 +6,8 @@ See LICENSE.txt
 var yaml = require('js-yaml')
 var Transform = require('readable-stream').Transform
 
+var BAIL = 'Bail out!'
+
 function MakeTap () {
   Transform.call(this)
   this.writeln('TAP version 13')
@@ -50,6 +52,10 @@ MakeTap.prototype.fail = function (message, directive, err) {
     directive: directive,
     dataObj: processError(err)
   })
+}
+
+MakeTap.prototype.bail = function (message) {
+  this.writeln(message && message.length ? BAIL + ' ' + message : BAIL)
 }
 
 MakeTap.prototype.result = function (result) {
