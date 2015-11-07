@@ -47,11 +47,8 @@ MakeTap.prototype.fail = function (message, directive, err) {
     message = undefined
     directive = undefined
   }
-  this.result({
-    message: message,
-    directive: directive,
-    dataObj: processError(err)
-  })
+  this.result({message: message, directive: directive})
+  this.yaml(processError(err))
 }
 
 MakeTap.prototype.bail = function (message) {
@@ -59,10 +56,10 @@ MakeTap.prototype.bail = function (message) {
 }
 
 MakeTap.prototype.result = function (result) {
-  var count = ' ' + ++this.count
-  var directive = result.directive ? ' # ' + result.directive : ''
-  var message = result.message ? ' ' + result.message : ''
-  this.writeln((result.ok ? 'ok' : 'not ok') + count + message + directive)
+  var line = [(result.ok ? 'ok' : 'not ok'), ++this.count]
+  if (result.message) line.push(result.message)
+  if (result.directive) line.push('# ' + result.directive)
+  this.writeln(line.join(' '))
   if (typeof result.dataObj === 'object') {
     this.yaml(result.dataObj)
   }
