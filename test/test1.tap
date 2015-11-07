@@ -52,3 +52,6 @@ Bail out! This is a bail reason
   stuff: 1
 
   ...
+TAP version 13
+ok
+ok foo

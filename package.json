@@ -9,6 +9,7 @@
   "author": "Bryan English <bryan@bryanenglish.com>",
   "license": "MIT",
   "devDependencies": {
+    "print-diff": "^0.1.0",
     "standard": "^5.1.0"
   },
   "dependencies": {

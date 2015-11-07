@@ -8,8 +8,10 @@ var Transform = require('readable-stream').Transform
 
 var BAIL = 'Bail out!'
 
-function MakeTap () {
+function MakeTap (opts) {
   Transform.call(this)
+  opts = opts || {}
+  this.countEnabled = typeof opts.count !== 'boolean' ? true : opts.count
   this.writeln('TAP version 13')
   this.count = 0
 }
@@ -56,7 +58,8 @@ MakeTap.prototype.bail = function (message) {
 }
 
 MakeTap.prototype.result = function (result) {
-  var line = [(result.ok ? 'ok' : 'not ok'), ++this.count]
+  var line = [(result.ok ? 'ok' : 'not ok')]
+  if (this.countEnabled) line.push(++this.count)
   if (result.message) line.push(result.message)
   if (result.directive) line.push('# ' + result.directive)
   this.writeln(line.join(' '))
@@ -73,8 +76,8 @@ MakeTap.prototype.yaml = function (data) {
   this.writeln('  ...')
 }
 
-module.exports = function () {
-  return new MakeTap()
+module.exports = function (opts) {
+  return new MakeTap(opts)
 }
 
 function processError (err) {

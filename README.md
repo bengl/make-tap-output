@@ -7,8 +7,12 @@ This is a simple toolkit for making TAP-compatible output.
 `make-tap-output` exports a single function, and returns a readable stream with
 handy methods for generating TAP data from that stream.
 
+It takes in an optional `opts` object. Currently there's only one possible
+option, which is `count`. Setting this to a boolean enables or disables the
+count number in each test result. The default is `true`.
+
 ```js
-var tap = require('make-tap-output')()
+var tap = require('make-tap-output')({count: true})
 
 tap.pipe(process.stdout)
 ```

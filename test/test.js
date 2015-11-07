@@ -3,6 +3,7 @@ var fs = require('fs')
 var assert = require('assert')
 
 var testOutput = fs.readFileSync(require('path').join(__dirname, 'test1.tap'), 'utf8')
+var buff = ''
 
 var testErr = {
   name: 'Error',
@@ -17,6 +18,13 @@ var testAssertionError = {
   expected: 'five',
   actual: 'four',
   stack: 'AssertionError: foomessage\n    line1\n    line2'
+}
+
+function testTapPipe (tap) {
+  tap
+  .on('data', function (d) {
+    buff += d
+  })
 }
 
 var testTap = makeTap()
@@ -50,13 +58,19 @@ testTap.yaml({
 
 testTap.end()
 
-var buff = ''
-testTap
-.on('data', function (d) {
-  buff += d
+var testTap2 = makeTap({count: false})
+
+testTap2.pass()
+testTap2.pass('foo')
+
+testTap2.end()
+
+testTapPipe(testTap)
+testTapPipe(testTap2)
+testTap2.on('end', function () {
+  process.nextTick(function () {
+    require('print-diff')(testOutput, buff)
+    assert.equal(testOutput, buff)
+    console.log('# success!')
+  })
 })
-.on('end', function () {
-  assert.equal(testOutput, buff)
-  console.log('# success!')
-})
-.pipe(process.stdout)
