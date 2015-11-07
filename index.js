@@ -63,13 +63,17 @@ MakeTap.prototype.result = function (result) {
   var directive = result.directive ? ' # ' + result.directive : ''
   var message = result.message ? ' ' + result.message : ''
   this.writeln((result.ok ? 'ok' : 'not ok') + count + message + directive)
-  if (result.dataObj) {
-    this.writeln('  ---')
-    this.writeln(yaml.safeDump(result.dataObj).split('\n').map(function (l) {
-      return l.length ? '  ' + l : ''
-    }).join('\n'))
-    this.writeln('  ...')
+  if (typeof result.dataObj === 'object') {
+    this.yaml(result.dataObj)
   }
+}
+
+MakeTap.prototype.yaml = function (data) {
+  this.writeln('  ---')
+  this.writeln(yaml.safeDump(data).split('\n').map(function (l) {
+    return l.length ? '  ' + l : ''
+  }).join('\n'))
+  this.writeln('  ...')
 }
 
 module.exports = function () {

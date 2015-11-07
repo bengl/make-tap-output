@@ -37,6 +37,26 @@ tap.diag('this is a "diagnostic" message')
 // # this is a diagnostic message
 ```
 
+### `#yaml(data)`
+
+```js
+tap.yaml({
+  some: {
+    data: {
+      foo: 'bar'
+    }
+  },
+  stuff: 1
+})
+//  ---
+//  some:
+//    data:
+//      foo: bar
+//  stuff: 1
+//
+//  ...
+```
+
 ### `#result({ok, message, directive, dataObj})`
 
 ```js

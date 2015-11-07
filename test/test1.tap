@@ -45,3 +45,10 @@ not ok 7
   ...
 Bail out!
 Bail out! This is a bail reason
+  ---
+  some:
+    data:
+      foo: bar
+  stuff: 1
+
+  ...
