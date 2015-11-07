@@ -48,7 +48,7 @@ MakeTap.prototype.fail = function (message, directive, err) {
   this.result({
     message: message,
     directive: directive,
-    dataObj: this.processError(err)
+    dataObj: processError(err)
   })
 }
 
@@ -66,7 +66,11 @@ MakeTap.prototype.result = function (result) {
   }
 }
 
-MakeTap.prototype.processError = function (err) {
+module.exports = function () {
+  return new MakeTap()
+}
+
+function processError (err) {
   var obj = {}
   applyProp(err, obj, 'name')
   applyProp(err, obj, 'message')
@@ -77,10 +81,6 @@ MakeTap.prototype.processError = function (err) {
   }
   applyProp(err, obj, 'stack')
   return obj
-}
-
-module.exports = function () {
-  return new MakeTap()
 }
 
 function applyProp (from, to, name) {
