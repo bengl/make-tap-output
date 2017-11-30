@@ -27,7 +27,7 @@ testTap.writeln('# foo')
 
 testTap.diag('bar')
 
-testTap.plan(6)
+testTap.plan(8)
 
 testTap.pass()
 testTap.pass('foo')
@@ -49,6 +49,27 @@ testTap.yaml({
   },
   stuff: 1
 })
+
+var sub1 = testTap.unbufferedSub('sub1')
+sub1.plan(3)
+sub1.pass('a pass')
+sub1.fail('a fail', testErr)
+var subsub1 = sub1.unbufferedSub('subsub1')
+subsub1.plan(1)
+subsub1.pass('a pass')
+sub1.pass('subsub1')
+testTap.pass('sub1')
+
+var sub2 = testTap.bufferedSub({ok: true, message: 'sub2'})
+sub1.plan(2)
+sub2.pass('a pass')
+sub2.fail('a fail', testErr)
+var subsub2 = sub2.bufferedSub({ok: true, message: 'subsub2'})
+subsub2.plan(1)
+subsub2.pass('a pass')
+subsub2.end()
+sub2.pass('subsub2')
+sub2.end()
 
 testTap.end()
 

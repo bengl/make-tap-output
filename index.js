@@ -11,8 +11,11 @@ var BAIL = 'Bail out!'
 function MakeTap (opts) {
   Transform.call(this)
   opts = opts || {}
+  this.opts = opts
   this.countEnabled = typeof opts.count !== 'boolean' ? true : opts.count
-  this.writeln('TAP version 13')
+  if (!opts.noversion) {
+    this.writeln('TAP version 13')
+  }
   this.count = 0
 }
 require('util').inherits(MakeTap, Transform)
@@ -74,6 +77,43 @@ MakeTap.prototype.yaml = function (data) {
     return l.length ? '  ' + l : ''
   }).join('\n'))
   this.writeln('  ...')
+}
+
+MakeTap.prototype.unbufferedSub = function (name) {
+  this.writeln('# Subtest: ' + name)
+  var opts = {}
+  for (var prop in this.opts) {
+    opts[prop] = this.opts[prop]
+  }
+  opts.noversion = true
+  var subtap = new MakeTap(opts)
+  var thisWriteln = this.writeln.bind(this)
+  subtap.writeln = function (data) {
+    thisWriteln(data.split('\n').map(l => '    ' + l).join('\n'))
+  }
+  return subtap
+}
+
+MakeTap.prototype.bufferedSub = function (result) {
+  var line = [(result.ok ? 'ok' : 'not ok')]
+  if (this.countEnabled) line.push(++this.count)
+  if (result.message) line.push(result.message)
+  if (result.directive) line.push('# ' + result.directive)
+  this.writeln(line.join(' ') + ' {')
+  var opts = {}
+  for (var prop in this.opts) {
+    opts[prop] = this.opts[prop]
+  }
+  opts.noversion = true
+  var subtap = new MakeTap(opts)
+  var thisWriteln = this.writeln.bind(this)
+  subtap.writeln = function (data) {
+    thisWriteln(data.split('\n').map(l => '    ' + l).join('\n'))
+  }
+  subtap.end = function () {
+    thisWriteln('}')
+  }
+  return subtap
 }
 
 module.exports = function (opts) {

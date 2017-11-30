@@ -114,6 +114,28 @@ tap.bail('This is a bail out reason')
 // Bail out! This is a bail out reason
 ```
 
+### `#unbufferedSub(name)`
+
+```js
+var mySub = tap.unbufferedSub('my sub') // This is a new tap instance for you
+mySub.test('foo test')
+// # Subtest: my sub
+//     ok 1 foo test
+```
+> Note: This does not "end" the subtest. For that, just use `pass` or `fail`
+> above.
+
+### `#bufferedSub(result)`
+
+```js
+var mySub = tap.bufferedSub({ ok: true, message: 'my sub' })
+mySub.test('foo test')
+mySub.end()
+// ok 1 my sub {
+//     ok 1 foo test
+// }
+```
+
 ## Standard?
 
 This module, while helping to produce standard TAP version 13 output, can also
