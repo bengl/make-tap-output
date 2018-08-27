@@ -9,7 +9,7 @@ var exitCode = 0
 var testErr = {
   name: 'Error',
   message: 'foobar',
-  stack: 'Error: foobar\n    line1\n    line2'
+  stack: 'Error: foobar\n    at line1\n    at line2'
 }
 
 var testAssertionError = {
@@ -18,7 +18,7 @@ var testAssertionError = {
   operator: '==',
   expected: 'five',
   actual: 'four',
-  stack: 'AssertionError: foomessage\n    line1\n    line2'
+  stack: 'AssertionError: foomessage\n    at line1\n    at line2'
 }
 
 var testTap = makeTap()
@@ -101,8 +101,7 @@ testTap2.on('end', function () {
 })
 
 function testTapPipe (tap) {
-  tap
-  .on('data', function (d) {
+  tap.on('data', function (d) {
     buff += d
   })
 }

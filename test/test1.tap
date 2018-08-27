@@ -10,9 +10,8 @@ not ok 4
   name: Error
   message: foobar
   stack: |-
-    Error: foobar
-        line1
-        line2
+    line1
+    line2
 
   ...
 not ok 5 foo
@@ -20,9 +19,8 @@ not ok 5 foo
   name: Error
   message: foobar
   stack: |-
-    Error: foobar
-        line1
-        line2
+    line1
+    line2
 
   ...
 not ok 6 bar # thing
@@ -33,9 +31,8 @@ not ok 6 bar # thing
   expected: five
   actual: four
   stack: |-
-    AssertionError: foomessage
-        line1
-        line2
+    line1
+    line2
 
   ...
 not ok 7
@@ -60,9 +57,8 @@ Bail out! This is a bail reason
       name: Error
       message: foobar
       stack: |-
-        Error: foobar
-            line1
-            line2
+        line1
+        line2
     
       ...
     # Subtest: subsub1
@@ -78,9 +74,8 @@ ok 9 sub2 {
       name: Error
       message: foobar
       stack: |-
-        Error: foobar
-            line1
-            line2
+        line1
+        line2
     
       ...
     ok 3 subsub2 {

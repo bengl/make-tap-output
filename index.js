@@ -124,12 +124,16 @@ function processError (err) {
   var obj = {}
   applyProp(err, obj, 'name')
   applyProp(err, obj, 'message')
-  if (err.name === 'AssertionError') {
+  if (err.name.indexOf('AssertionError') === 0) {
     applyProp(err, obj, 'operator')
     applyProp(err, obj, 'expected')
     applyProp(err, obj, 'actual')
   }
-  applyProp(err, obj, 'stack')
+  if (err.stack) {
+    var stack = err.stack.split('\n')
+    stack.shift()
+    obj.stack = stack.map(line => line.replace('    at ', '')).join('\n')
+  }
   return obj
 }
 
