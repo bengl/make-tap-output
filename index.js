@@ -124,7 +124,7 @@ function processError (err) {
   var obj = {}
   applyProp(err, obj, 'name')
   applyProp(err, obj, 'message')
-  if (err.name.indexOf('AssertionError') === 0) {
+  if (err.name && err.name.indexOf('AssertionError') === 0) {
     applyProp(err, obj, 'operator')
     applyProp(err, obj, 'expected')
     applyProp(err, obj, 'actual')
