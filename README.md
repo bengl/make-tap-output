@@ -1,6 +1,6 @@
 # make-tap-output
 
-![build status](https://travis-ci.org/bengl/make-tap-output.svg)
+[![Build Status](https://github.com/bengl/make-tap-output/actions/workflows/ci.yml/badge.svg)](https://github.com/bengl/make-tap-output/actions/workflows/ci.yml)
 
 This is a simple toolkit for making TAP-compatible output.
 
