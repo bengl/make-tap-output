@@ -72,7 +72,7 @@ class MakeTap extends Transform {
   yaml (data) {
     this.writeln('  ---');
     this.writeln(
-      yaml.safeDump(data)
+      yaml.dump(data, { skipInvalid: true })
         .split('\n')
         .map(l => l.length ? '  ' + l : '')
         .join('\n')

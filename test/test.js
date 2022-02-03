@@ -17,7 +17,16 @@ const testAssertionError = {
   message: 'foomessage',
   operator: '==',
   expected: 'five',
-  actual: 'four',
+  actual: {
+    some: 'thing',
+    with: [
+      {
+        an: undefined,
+        and: null,
+        also: Symbol('symbol')
+      }
+    ]
+  },
   stack: 'AssertionError: foomessage\n    at line1\n    at line2'
 };
 

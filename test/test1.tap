@@ -29,7 +29,10 @@ not ok 6 bar # thing
   message: foomessage
   operator: ==
   expected: five
-  actual: four
+  actual:
+    some: thing
+    with:
+      - and: null
   stack: |-
     line1
     line2
