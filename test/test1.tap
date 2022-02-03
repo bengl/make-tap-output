@@ -27,7 +27,7 @@ not ok 6 bar # thing
   ---
   name: AssertionError
   message: foomessage
-  operator: ==
+  operator: '=='
   expected: five
   actual:
     some: thing

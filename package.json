@@ -9,11 +9,11 @@
   "author": "Bryan English <bryan@bryanenglish.com>",
   "license": "MIT",
   "devDependencies": {
-    "print-diff": "^0.1.1",
-    "semistandard": "^13.0.1"
+    "print-diff": "^1.0.0",
+    "semistandard": "^14.0.1"
   },
   "dependencies": {
-    "js-yaml": "^3.13.1",
-    "readable-stream": "^3.0.2"
+    "js-yaml": "^4.1.0",
+    "readable-stream": "^3.6.0"
   }
 }
